@@ -26,66 +26,70 @@ button.pull = digitalio.Pull.UP
 number_presses = 0
 # function for using the button wisely
 def button_callback():
-global number_presses
-number_presses = 1;
-global count
+ global number_presses
+ number_presses = 1;
+ global count
 # change the interval(count) when ever the button is pressed
-if count == 10:
-count = 5
-elif count == 5:
-count = 0
-else:
-count = 10
-print("Interval changed to",str(count)+"s")
+ if count == 10:
+  count = 5
+ elif count == 5:
+  count = 0
+ else:
+  count = 10
+ print("Interval changed to",str(count)+"s")
+
 def Display_Results_using_Threads():
-global number_presses
-number_presses = 0;
-global start
-global count
+ global number_presses
+ number_presses = 0;
+ global start
+ global count
 # using the threading timer to time the thread to wait for specific seconds as specified
 #by pressing the button
-thread = threading.Timer(count, Display_Results_using_Threads)
-thread.daemon=True
-thread.start()
-end = int(time() − start1)
+ thread = threading.Timer(count, Display_Results_using_Threads)
+ thread.daemon=True
+ thread.start()
+ end = int(time() − start1)
 # converting temperature from volts to degrees C
-temp = round(((chan.voltage−0.5)/0.01),3)
-print("{:<11}{:<16}{:<10}C".format(str(end)+"s",chan.value,temp))
+ temp = round(((chan.voltage−0.5)/0.01),3)
+ print("{:<11}{:<16}{:<10}C".format(str(end)+"s",chan.value,temp))
+
 if __name__ == "__main__":
-print("Runtime Temp Reading Temp")
-Display_Results_using_Threads()
+ print("Runtime Temp Reading Temp")
+ Display_Results_using_Threads()
 # the program must run for a maximum of 1 minute but with the interval varying
 #but the button
-start = time() +70
-while True:
-if time()>start:
-break
-if not button.value:
-if number_presses<1:
-button_callback() # calling the button method when the button is pressed
+ start = time() +70
+ while True:
+  if time()>start:
+   break
+  if not button.value:
+  if number_presses<1:
+    button_callback() # calling the button method when the button is pressed
+
 def button_callback():
-global number_presses
-number_presses = 1;
-global count
+ global number_presses
+ number_presses = 1;
+ global count
 # change the interval(count) when ever the button is pressed
-if count == 10:
-count = 5
-elif count == 5:
-count = 0
-else:
-count = 10
-print("Interval changed to",str(count)+"s")
+ if count == 10:
+  count = 5
+ elif count == 5:
+  count = 0
+ else:
+  count = 10
+ print("Interval changed to",str(count)+"s")
+
 if __name__ == "__main__":
-print("Runtime Temp Reading Temp")
-main()
-# the program must run for a maximum of 1 minute but with the interval varying
-#but the button
-start = time() +70
-while True:
-if time()>start:
-break
-if not button.value:
-if number_presses<1:
-button_callback() # calling the button method when the button is pressed
+ print("Runtime Temp Reading Temp")
+ main()
+  # the program must run for a maximum of 1 minute but with the interval varying
+   #but the button
+ start = time() +70
+ while True:
+  if time()>start:
+   break
+  if not button.value:
+  if number_presses<1:
+   button_callback() # calling the button method when the button is pressed
 
 
